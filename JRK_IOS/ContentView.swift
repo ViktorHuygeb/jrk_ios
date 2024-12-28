@@ -9,9 +9,8 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         NavigationStack {
-            VStack {
-            }
-            .padding()
+            ActiviteitenView(activiteiten: Activiteit.sampleData)
+                .navigationTitle("Activiteiten")
         }
     }
 }
