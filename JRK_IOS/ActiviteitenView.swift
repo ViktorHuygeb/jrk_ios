@@ -10,9 +10,20 @@ import SwiftUI
 struct ActiviteitenView: View {
     var activiteiten: [Activiteit]
     var body: some View {
-        List(activiteiten, id: \.id) {activiteit in
-            ActiviteitCardView(activiteit: activiteit)
-                .listRowInsets(.init())
+        NavigationStack{
+            List(activiteiten, id: \.id) {activiteit in
+                NavigationLink(destination: ActiviteitDetailView(activiteit: activiteit)){
+                    ActiviteitCardView(activiteit: activiteit)
+                }
+                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 20))
+            }
+            .navigationTitle("Activiteiten")
+            .toolbar{
+                Button(action: {}) {
+                    Image(systemName: "plus")
+                }
+                .accessibilityLabel("Voeg nieuwe activiteit toe")
+            }
         }
     }
 }

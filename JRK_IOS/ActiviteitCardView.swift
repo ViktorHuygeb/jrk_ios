@@ -21,9 +21,9 @@ struct ActiviteitCardView: View {
                 .accessibilityAddTraits(.isHeader)
             HStack{
                 Text("\(activiteit.prijs == 0.00 ? "Gratis" : NSString(format: "€ %.2f", activiteit.prijs))")
-                    .accessibilityLabel("Deze activiteit \(activiteit.prijs == 0.00 ? "is gratis" : NSString(format: "kost %.2f euro", activiteit.prijs))")
+                    .accessibilityLabel("Deze activiteit \(activiteit.prijs == 0.00 ? "is gratis" : String(format: "kost %.2f euro", activiteit.prijs))")
                 Spacer()
-                Label("\(Self.dateFormatter.string(from: activiteit.datum))", systemImage: "clock")
+                Label("\(Self.dateFormatter.string(from: activiteit.datum))", systemImage: "calendar")
                     .accessibilityLabel("De activiteit vindt plaats op \(Self.dateFormatter.string(from: activiteit.datum))")
                     .labelStyle(.trailingIcon)
                     
