@@ -8,11 +8,11 @@
 import SwiftUI
 
 struct ActiviteitenView: View {
-    var activiteiten: [Activiteit]
+    @Binding var activiteiten: [Activiteit]
     var body: some View {
         NavigationStack{
-            List(activiteiten, id: \.id) {activiteit in
-                NavigationLink(destination: ActiviteitDetailView(activiteit: activiteit)){
+            List($activiteiten, id: \.id) {$activiteit in
+                NavigationLink(destination: ActiviteitDetailView(activiteit: $activiteit)){
                     ActiviteitCardView(activiteit: activiteit)
                 }
                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 20))
@@ -30,6 +30,6 @@ struct ActiviteitenView: View {
 
 struct ActiviteitenView_Previews: PreviewProvider{
     static var previews: some View {
-        ActiviteitenView(activiteiten: Activiteit.sampleData)
+        ActiviteitenView(activiteiten: .constant(Activiteit.sampleData))
     }
 }

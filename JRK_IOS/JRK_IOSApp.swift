@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct JRK_IOSApp: App {
+    @State private var activiteiten = Activiteit.sampleData
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ActiviteitenView(activiteiten: $activiteiten)
         }
     }
 }

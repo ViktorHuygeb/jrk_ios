@@ -7,8 +7,9 @@
 import SwiftUI
 
 struct ActiviteitDetailView: View {
-    let activiteit: Activiteit
+    @Binding var activiteit: Activiteit
     
+    @State private var editingActiviteit = Activiteit.emptyActiviteit
     @State private var isPresentingEditView = false
     
     private static let dateFormatter: DateFormatter = {
@@ -55,12 +56,13 @@ struct ActiviteitDetailView: View {
         .navigationTitle(activiteit.activiteitNaam)
         .toolbar {
             Button ("Bewerk"){
+                editingActiviteit = activiteit
                 isPresentingEditView = true
             }
         }
         .sheet(isPresented: $isPresentingEditView){
             NavigationStack {
-                ActiviteitEditView()
+                ActiviteitEditView(activiteit: $editingActiviteit)
                     .navigationTitle(activiteit.activiteitNaam)
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
@@ -71,6 +73,7 @@ struct ActiviteitDetailView: View {
                         ToolbarItem(placement: .confirmationAction) {
                             Button("Bewaar"){
                                 isPresentingEditView = false
+                                activiteit = editingActiviteit
                             }
                         }
                     }
@@ -83,7 +86,7 @@ struct ActiviteitDetailView: View {
 struct ActiviteitDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            ActiviteitDetailView(activiteit: Activiteit.sampleData[1])
+            ActiviteitDetailView(activiteit: .constant(Activiteit.sampleData[1]))
         }
     }
 }

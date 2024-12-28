@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ActiviteitEditView: View {
-    @State private var activiteit = Activiteit.emptyActiviteit
+    @Binding var activiteit: Activiteit
     var body: some View {
         Form{
             Section(header: Text("Activiteit info")) {
@@ -35,6 +35,14 @@ struct ActiviteitEditView: View {
                 }
                 Toggle("Met inschrijving", isOn: $activiteit.moetInschrijven)
             }
+            
+            Section(header: Text("Leidinginfo")){
+                Picker("Leiding", selection: $activiteit.leidingId){
+                    ForEach(Leiding.sampleData, id: \.leidingId) { leiding in
+                        Text("\(leiding.voornaam) \(leiding.achternaam)").tag(leiding.leidingId)
+                    }
+                }
+            }
         }
         .accentColor(Color.red)
     }
@@ -42,6 +50,6 @@ struct ActiviteitEditView: View {
 
 struct ActiviteitEditView_Previews: PreviewProvider {
     static var previews: some View {
-        ActiviteitEditView()
+        ActiviteitEditView(activiteit: .constant(Activiteit.sampleData[0]))
     }
 }
