@@ -24,7 +24,7 @@ struct ActiviteitenView: View {
                 }
                 .accessibilityLabel("Voeg nieuwe activiteit toe")
             }
-        }
+        }.accentColor(Color.red)
     }
 }
 

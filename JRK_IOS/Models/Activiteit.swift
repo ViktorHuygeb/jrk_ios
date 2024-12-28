@@ -16,6 +16,12 @@ struct Activiteit {
     var moetInschrijven: Bool
 }
 
+extension Activiteit {
+    static var emptyActiviteit: Activiteit {
+        Activiteit(id: 0, leidingId: 0, activiteitNaam: "", datum: Date(), beschrijving: "", prijs: 0, moetInschrijven: false)
+    }
+}
+
 
 extension Activiteit{
     static var sampleData: [Activiteit] {

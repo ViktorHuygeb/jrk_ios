@@ -9,6 +9,8 @@ import SwiftUI
 struct ActiviteitDetailView: View {
     let activiteit: Activiteit
     
+    @State private var isPresentingEditView = false
+    
     private static let dateFormatter: DateFormatter = {
         let df = DateFormatter()
         df.dateFormat = "dd/MM/yyyy"
@@ -37,7 +39,6 @@ struct ActiviteitDetailView: View {
                 }
                 .accessibilityElement(children: .combine)
             }
-            .accentColor(Color.red)
             
             Section(header: Text("Beschrijving")){
                 Text(activiteit.beschrijving)
@@ -47,10 +48,35 @@ struct ActiviteitDetailView: View {
                 Section {
                     Button(action: {}){
                         Text("Inschrijven")
-                    }.accentColor(Color.red)
+                    }
                 }
             }
         }
+        .navigationTitle(activiteit.activiteitNaam)
+        .toolbar {
+            Button ("Bewerk"){
+                isPresentingEditView = true
+            }
+        }
+        .sheet(isPresented: $isPresentingEditView){
+            NavigationStack {
+                ActiviteitEditView()
+                    .navigationTitle(activiteit.activiteitNaam)
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction) {
+                            Button("Annuleer") {
+                                isPresentingEditView = false
+                            }
+                        }
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button("Bewaar"){
+                                isPresentingEditView = false
+                            }
+                        }
+                    }
+            }.accentColor(Color.red)
+        }
+        .accentColor(Color.red)
     }
 }
 
