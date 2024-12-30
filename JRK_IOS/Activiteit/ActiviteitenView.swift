@@ -9,6 +9,8 @@ import SwiftUI
 
 struct ActiviteitenView: View {
     @Binding var activiteiten: [Activiteit]
+    @State var isPresentingNewActiviteitView = false
+    
     var body: some View {
         NavigationStack{
             List($activiteiten, id: \.id) {$activiteit in
@@ -19,12 +21,15 @@ struct ActiviteitenView: View {
             }
             .navigationTitle("Activiteiten")
             .toolbar{
-                Button(action: {}) {
-                    Image(systemName: "plus")
+                Button(action: {isPresentingNewActiviteitView = true}){
+                   Image(systemName: "plus")
                 }
-                .accessibilityLabel("Voeg nieuwe activiteit toe")
             }
-        }.accentColor(Color.red)
+        }
+        .accentColor(Color.red)
+        .sheet(isPresented: $isPresentingNewActiviteitView){
+            NewActiviteitSheet(activiteiten: $activiteiten, isPresentingNewActiviteitVew: $isPresentingNewActiviteitView)
+        }
     }
 }
 
