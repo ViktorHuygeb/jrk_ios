@@ -9,7 +9,10 @@ import SwiftUI
 
 struct ActiviteitenView: View {
     @Binding var activiteiten: [Activiteit]
+    @Environment(\.scenePhase) private var scenePhase
     @State var isPresentingNewActiviteitView = false
+    
+    let saveAction: () -> Void
     
     var body: some View {
         NavigationStack{
@@ -31,11 +34,16 @@ struct ActiviteitenView: View {
             NewActiviteitSheet(activiteiten: $activiteiten, isPresentingNewActiviteitVew: $isPresentingNewActiviteitView)
                 .accentColor(Color.red)
         }
+        .onChange(of: scenePhase) { oldPhase, newPhase in
+            if oldPhase == .inactive {
+                saveAction()
+            }
+        }
     }
 }
 
 struct ActiviteitenView_Previews: PreviewProvider{
     static var previews: some View {
-        ActiviteitenView(activiteiten: .constant(Activiteit.sampleData))
+        ActiviteitenView(activiteiten: .constant(Activiteit.sampleData), saveAction: {})
     }
 }

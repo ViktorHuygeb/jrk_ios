@@ -11,6 +11,15 @@ import Foundation
 class ActiviteitStore: ObservableObject {
     @Published var activiteiten: [Activiteit] = []
     
+    init() {
+        Task<_, Error> {
+            _ = try await load()
+            if (!activiteiten.isEmpty){
+                try await save(activiteiten: Activiteit.sampleData)
+            }
+        }
+    }
+    
     // We store all our data in a file for now, later we will change this using SwiftData
     private static func fileURL() throws -> URL {
         try FileManager.default.url(for: .documentDirectory,

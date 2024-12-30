@@ -9,10 +9,25 @@ import SwiftUI
 
 @main
 struct JRK_Aalter: App {
-    @State private var activiteiten = Activiteit.sampleData
+    @StateObject private var store = ActiviteitStore()
     var body: some Scene {
         WindowGroup {
-            ActiviteitenView(activiteiten: $activiteiten)
+            ActiviteitenView(activiteiten: $store.activiteiten){
+                Task {
+                    do {
+                        try await store.save(activiteiten: store.activiteiten)
+                    } catch {
+                        fatalError(error.localizedDescription)
+                    }
+                }
+            }
+                .task {
+                    do {
+                        try await store.load()
+                    } catch {
+                        fatalError(error.localizedDescription)
+                    }
+                }
         }
     }
 }
