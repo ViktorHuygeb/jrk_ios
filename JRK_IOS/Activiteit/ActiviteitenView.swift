@@ -29,6 +29,7 @@ struct ActiviteitenView: View {
         .accentColor(Color.red)
         .sheet(isPresented: $isPresentingNewActiviteitView){
             NewActiviteitSheet(activiteiten: $activiteiten, isPresentingNewActiviteitVew: $isPresentingNewActiviteitView)
+                .accentColor(Color.red)
         }
     }
 }

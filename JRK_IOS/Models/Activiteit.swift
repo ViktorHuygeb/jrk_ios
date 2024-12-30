@@ -18,7 +18,7 @@ struct Activiteit {
 
 extension Activiteit {
     static var emptyActiviteit: Activiteit {
-        Activiteit(id: 0, leidingId: 0, activiteitNaam: "", datum: Date(), beschrijving: "", prijs: 0, moetInschrijven: false)
+        Activiteit(id: 0, leidingId: 1, activiteitNaam: "", datum: Date(), beschrijving: "", prijs: 0, moetInschrijven: false)
     }
 }
 
