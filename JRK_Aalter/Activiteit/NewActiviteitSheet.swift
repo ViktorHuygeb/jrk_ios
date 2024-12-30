@@ -16,7 +16,7 @@ struct NewActiviteitSheet: View {
     var body: some View {
         NavigationStack{
             ActiviteitEditView(activiteit: $newActiviteit)
-                .toolbar{
+               /* .toolbar{
                     ToolbarItem(placement: .cancellationAction){
                         Button("Annuleer") {
                             isPresentingNewActiviteitVew = false
@@ -28,7 +28,7 @@ struct NewActiviteitSheet: View {
                             isPresentingNewActiviteitVew = false
                         }
                     }
-                }
+                } */
         }
     }
 }

@@ -4,7 +4,6 @@
 //
 //  Created by Viktor Huygebaert on 27/12/2024.
 //
-
 import SwiftUI
 
 struct ActiviteitenView: View {
@@ -25,7 +24,7 @@ struct ActiviteitenView: View {
             .navigationTitle("Activiteiten")
             .toolbar{
                 Button(action: {isPresentingNewActiviteitView = true}){
-                   Image(systemName: "plus")
+                    Image(systemName: "plus")
                 }
             }
         }
@@ -34,8 +33,8 @@ struct ActiviteitenView: View {
             NewActiviteitSheet(activiteiten: $activiteiten, isPresentingNewActiviteitVew: $isPresentingNewActiviteitView)
                 .accentColor(Color.red)
         }
-        .onChange(of: scenePhase) { oldPhase, newPhase in
-            if oldPhase == .inactive {
+        .onChange(of: scenePhase) { phase in
+            if phase == .inactive {
                 saveAction()
             }
         }
