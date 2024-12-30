@@ -12,17 +12,20 @@ struct JRK_Aalter: App {
     @StateObject private var store = ActiviteitStore()
     @State private var errorWrapper: ErrorWrapper?
     
+    // TODO - Change Tabview that when using iOS 18 it uses Tab instead
+    
     var body: some Scene {
         WindowGroup {
-            ActiviteitenView(activiteiten: $store.activiteiten){
-                Task {
-                    do {
-                        try await store.save(activiteiten: store.activiteiten)
-                    } catch {
-                        errorWrapper = ErrorWrapper(error: error, guidance: "Probeer later opnieuw.")
+            TabView {
+                ActiviteitenView(activiteiten: $store.activiteiten){
+                    Task {
+                        do {
+                            try await store.save(activiteiten: store.activiteiten)
+                        } catch {
+                            errorWrapper = ErrorWrapper(error: error, guidance: "Probeer later opnieuw.")
+                        }
                     }
                 }
-            }
                 .task {
                     do {
                         try await store.load()
@@ -34,8 +37,21 @@ struct JRK_Aalter: App {
                     store.activiteiten = Activiteit.sampleData
                 } content: { wrapper in
                     ErrorView(errorWrapper: wrapper)
-                    
                 }
+                .tabItem{
+                    Label("Activiteiten", systemImage: "figure.run")
+                }
+                    
+                LedenView()
+                    .tabItem{
+                        Label("Leden", systemImage: "person.3.fill")
+                    }
+                
+                ProfielView()
+                    .tabItem {
+                        Label("Profiel", systemImage: "person.crop.circle")
+                    }
+            }.accentColor(Color.red)
         }
     }
 }
