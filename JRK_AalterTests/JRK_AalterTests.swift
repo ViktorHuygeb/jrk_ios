@@ -6,7 +6,7 @@
 //
 
 import Testing
-@testable import JRK_IOS
+@testable import JRK_Aalter
 
 struct JRK_AalterTests {
 

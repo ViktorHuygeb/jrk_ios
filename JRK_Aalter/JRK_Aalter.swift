@@ -10,6 +10,8 @@ import SwiftUI
 @main
 struct JRK_Aalter: App {
     @StateObject private var store = ActiviteitStore()
+    @State private var errorWrapper: ErrorWrapper?
+    
     var body: some Scene {
         WindowGroup {
             ActiviteitenView(activiteiten: $store.activiteiten){
@@ -17,7 +19,7 @@ struct JRK_Aalter: App {
                     do {
                         try await store.save(activiteiten: store.activiteiten)
                     } catch {
-                        fatalError(error.localizedDescription)
+                        errorWrapper = ErrorWrapper(error: error, guidance: "Probeer later opnieuw.")
                     }
                 }
             }
@@ -25,8 +27,14 @@ struct JRK_Aalter: App {
                     do {
                         try await store.load()
                     } catch {
-                        fatalError(error.localizedDescription)
+                        errorWrapper = ErrorWrapper(error: error, guidance: "JRK Aalter laadt fake data in en gaat verder.")
                     }
+                }
+                .sheet(item: $errorWrapper){
+                    store.activiteiten = Activiteit.sampleData
+                } content: { wrapper in
+                    ErrorView(errorWrapper: wrapper)
+                    
                 }
         }
     }
