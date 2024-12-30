@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct Activiteit {
+struct Activiteit: Codable, Identifiable {
     var id: Int
     var leidingId: Int
     var activiteitNaam: String

@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Leiding: Hashable {
-    var leidingId: Int
+struct Leiding: Hashable, Identifiable, Codable {
+    var id: Int
     var voornaam: String
     var achternaam: String
     var email: String
@@ -20,12 +20,12 @@ struct Leiding: Hashable {
 }
 
 extension Leiding {
-    static var emptyLeiding = Leiding(leidingId: 0, voornaam: "", achternaam: "", email: "", straat: "", huisnummer: "", postcode: 0, stad: "", geboortedatum: Date())
+    static var emptyLeiding = Leiding(id: 0, voornaam: "", achternaam: "", email: "", straat: "", huisnummer: "", postcode: 0, stad: "", geboortedatum: Date())
 }
 
 extension Leiding {
     static var sampleData: [Leiding] = [
-        Leiding(leidingId: 1, voornaam: "Viktor", achternaam: "Huygebaert", email: "viktorhuygebaert04@gmail.com", straat: "Sint-Jozefstraat", huisnummer: "1", postcode: 9880, stad: "Aalter", geboortedatum: GlobalDateFormatter.shared.date(from: "06/05/2004") ?? Date()),
-        Leiding(leidingId: 2, voornaam: "Batist", achternaam: "Huygebaert", email: "viktorhuygebaert04@gmail.com", straat: "Sint-Jozefstraat", huisnummer: "1", postcode: 9880, stad: "Aalter", geboortedatum: GlobalDateFormatter.shared.date(from: "01/11/2000") ?? Date())
+        Leiding(id: 1, voornaam: "Viktor", achternaam: "Huygebaert", email: "viktorhuygebaert04@gmail.com", straat: "Sint-Jozefstraat", huisnummer: "1", postcode: 9880, stad: "Aalter", geboortedatum: GlobalDateFormatter.shared.date(from: "06/05/2004") ?? Date()),
+        Leiding(id: 2, voornaam: "Batist", achternaam: "Huygebaert", email: "viktorhuygebaert04@gmail.com", straat: "Sint-Jozefstraat", huisnummer: "1", postcode: 9880, stad: "Aalter", geboortedatum: GlobalDateFormatter.shared.date(from: "01/11/2000") ?? Date())
     ]
 }
