@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct JRK_IOSApp: App {
+struct JRK_Aalter: App {
     @State private var activiteiten = Activiteit.sampleData
     var body: some Scene {
         WindowGroup {

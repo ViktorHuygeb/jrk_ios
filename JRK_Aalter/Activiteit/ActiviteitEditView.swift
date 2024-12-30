@@ -38,8 +38,8 @@ struct ActiviteitEditView: View {
             
             Section(header: Text("Leidinginfo")){
                 Picker("Leiding", selection: $activiteit.leidingId){
-                    ForEach(Leiding.sampleData, id: \.leidingId) { leiding in
-                        Text("\(leiding.voornaam) \(leiding.achternaam)").tag(leiding.leidingId)
+                    ForEach(Leiding.sampleData, id: \.id) { leiding in
+                        Text("\(leiding.voornaam) \(leiding.achternaam)").tag(leiding.id)
                     }
                 }
             }

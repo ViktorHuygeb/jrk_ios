@@ -7,7 +7,7 @@
 
 import XCTest
 
-final class JRK_IOSUITestsLaunchTests: XCTestCase {
+final class JRK_AalterUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

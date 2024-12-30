@@ -24,25 +24,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8A8DE73E2D1EBDC700D0579F /* JRK_IOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JRK_IOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		8A8DE74E2D1EBDC800D0579F /* JRK_IOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JRK_IOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8A8DE7582D1EBDC800D0579F /* JRK_IOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JRK_IOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A8DE73E2D1EBDC700D0579F /* JRK_Aalter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JRK_Aalter.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A8DE74E2D1EBDC800D0579F /* JRK_AalterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JRK_AalterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8A8DE7582D1EBDC800D0579F /* JRK_AalterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JRK_AalterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		8A8DE7402D1EBDC700D0579F /* JRK_IOS */ = {
+		8A8DE7402D1EBDC700D0579F /* JRK_Aalter */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = JRK_IOS;
+			path = JRK_Aalter;
 			sourceTree = "<group>";
 		};
-		8A8DE7512D1EBDC800D0579F /* JRK_IOSTests */ = {
+		8A8DE7512D1EBDC800D0579F /* JRK_AalterTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = JRK_IOSTests;
+			path = JRK_AalterTests;
 			sourceTree = "<group>";
 		};
-		8A8DE75B2D1EBDC800D0579F /* JRK_IOSUITests */ = {
+		8A8DE75B2D1EBDC800D0579F /* JRK_AalterUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = JRK_IOSUITests;
+			path = JRK_AalterUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -75,9 +75,9 @@
 		8A8DE7352D1EBDC700D0579F = {
 			isa = PBXGroup;
 			children = (
-				8A8DE7402D1EBDC700D0579F /* JRK_IOS */,
-				8A8DE7512D1EBDC800D0579F /* JRK_IOSTests */,
-				8A8DE75B2D1EBDC800D0579F /* JRK_IOSUITests */,
+				8A8DE7402D1EBDC700D0579F /* JRK_Aalter */,
+				8A8DE7512D1EBDC800D0579F /* JRK_AalterTests */,
+				8A8DE75B2D1EBDC800D0579F /* JRK_AalterUITests */,
 				8A8DE73F2D1EBDC700D0579F /* Products */,
 			);
 			sourceTree = "<group>";
@@ -85,9 +85,9 @@
 		8A8DE73F2D1EBDC700D0579F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8A8DE73E2D1EBDC700D0579F /* JRK_IOS.app */,
-				8A8DE74E2D1EBDC800D0579F /* JRK_IOSTests.xctest */,
-				8A8DE7582D1EBDC800D0579F /* JRK_IOSUITests.xctest */,
+				8A8DE73E2D1EBDC700D0579F /* JRK_Aalter.app */,
+				8A8DE74E2D1EBDC800D0579F /* JRK_AalterTests.xctest */,
+				8A8DE7582D1EBDC800D0579F /* JRK_AalterUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -95,9 +95,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8A8DE73D2D1EBDC700D0579F /* JRK_IOS */ = {
+		8A8DE73D2D1EBDC700D0579F /* JRK_Aalter */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8A8DE7622D1EBDC800D0579F /* Build configuration list for PBXNativeTarget "JRK_IOS" */;
+			buildConfigurationList = 8A8DE7622D1EBDC800D0579F /* Build configuration list for PBXNativeTarget "JRK_Aalter" */;
 			buildPhases = (
 				8A8DE73A2D1EBDC700D0579F /* Sources */,
 				8A8DE73B2D1EBDC700D0579F /* Frameworks */,
@@ -108,18 +108,18 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				8A8DE7402D1EBDC700D0579F /* JRK_IOS */,
+				8A8DE7402D1EBDC700D0579F /* JRK_Aalter */,
 			);
-			name = JRK_IOS;
+			name = JRK_Aalter;
 			packageProductDependencies = (
 			);
 			productName = JRK_IOS;
-			productReference = 8A8DE73E2D1EBDC700D0579F /* JRK_IOS.app */;
+			productReference = 8A8DE73E2D1EBDC700D0579F /* JRK_Aalter.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8A8DE74D2D1EBDC800D0579F /* JRK_IOSTests */ = {
+		8A8DE74D2D1EBDC800D0579F /* JRK_AalterTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8A8DE7652D1EBDC800D0579F /* Build configuration list for PBXNativeTarget "JRK_IOSTests" */;
+			buildConfigurationList = 8A8DE7652D1EBDC800D0579F /* Build configuration list for PBXNativeTarget "JRK_AalterTests" */;
 			buildPhases = (
 				8A8DE74A2D1EBDC800D0579F /* Sources */,
 				8A8DE74B2D1EBDC800D0579F /* Frameworks */,
@@ -131,18 +131,18 @@
 				8A8DE7502D1EBDC800D0579F /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				8A8DE7512D1EBDC800D0579F /* JRK_IOSTests */,
+				8A8DE7512D1EBDC800D0579F /* JRK_AalterTests */,
 			);
-			name = JRK_IOSTests;
+			name = JRK_AalterTests;
 			packageProductDependencies = (
 			);
 			productName = JRK_IOSTests;
-			productReference = 8A8DE74E2D1EBDC800D0579F /* JRK_IOSTests.xctest */;
+			productReference = 8A8DE74E2D1EBDC800D0579F /* JRK_AalterTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		8A8DE7572D1EBDC800D0579F /* JRK_IOSUITests */ = {
+		8A8DE7572D1EBDC800D0579F /* JRK_AalterUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8A8DE7682D1EBDC800D0579F /* Build configuration list for PBXNativeTarget "JRK_IOSUITests" */;
+			buildConfigurationList = 8A8DE7682D1EBDC800D0579F /* Build configuration list for PBXNativeTarget "JRK_AalterUITests" */;
 			buildPhases = (
 				8A8DE7542D1EBDC800D0579F /* Sources */,
 				8A8DE7552D1EBDC800D0579F /* Frameworks */,
@@ -154,13 +154,13 @@
 				8A8DE75A2D1EBDC800D0579F /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				8A8DE75B2D1EBDC800D0579F /* JRK_IOSUITests */,
+				8A8DE75B2D1EBDC800D0579F /* JRK_AalterUITests */,
 			);
-			name = JRK_IOSUITests;
+			name = JRK_AalterUITests;
 			packageProductDependencies = (
 			);
 			productName = JRK_IOSUITests;
-			productReference = 8A8DE7582D1EBDC800D0579F /* JRK_IOSUITests.xctest */;
+			productReference = 8A8DE7582D1EBDC800D0579F /* JRK_AalterUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -186,7 +186,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8A8DE7392D1EBDC700D0579F /* Build configuration list for PBXProject "JRK_IOS" */;
+			buildConfigurationList = 8A8DE7392D1EBDC700D0579F /* Build configuration list for PBXProject "JRK_Aalter" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -200,9 +200,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8A8DE73D2D1EBDC700D0579F /* JRK_IOS */,
-				8A8DE74D2D1EBDC800D0579F /* JRK_IOSTests */,
-				8A8DE7572D1EBDC800D0579F /* JRK_IOSUITests */,
+				8A8DE73D2D1EBDC700D0579F /* JRK_Aalter */,
+				8A8DE74D2D1EBDC800D0579F /* JRK_AalterTests */,
+				8A8DE7572D1EBDC800D0579F /* JRK_AalterUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -258,12 +258,12 @@
 /* Begin PBXTargetDependency section */
 		8A8DE7502D1EBDC800D0579F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8A8DE73D2D1EBDC700D0579F /* JRK_IOS */;
+			target = 8A8DE73D2D1EBDC700D0579F /* JRK_Aalter */;
 			targetProxy = 8A8DE74F2D1EBDC800D0579F /* PBXContainerItemProxy */;
 		};
 		8A8DE75A2D1EBDC800D0579F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8A8DE73D2D1EBDC700D0579F /* JRK_IOS */;
+			target = 8A8DE73D2D1EBDC700D0579F /* JRK_Aalter */;
 			targetProxy = 8A8DE7592D1EBDC800D0579F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -395,7 +395,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"JRK_IOS/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"JRK_Aalter/Preview Content\"";
 				DEVELOPMENT_TEAM = TWK7XGHQ9U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -424,7 +424,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"JRK_IOS/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"JRK_Aalter/Preview Content\"";
 				DEVELOPMENT_TEAM = TWK7XGHQ9U;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -461,7 +461,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JRK_IOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/JRK_IOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JRK_Aalter.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/JRK_Aalter";
 			};
 			name = Debug;
 		};
@@ -480,7 +480,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JRK_IOS.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/JRK_IOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JRK_Aalter.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/JRK_Aalter";
 			};
 			name = Release;
 		};
@@ -521,7 +521,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8A8DE7392D1EBDC700D0579F /* Build configuration list for PBXProject "JRK_IOS" */ = {
+		8A8DE7392D1EBDC700D0579F /* Build configuration list for PBXProject "JRK_Aalter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8A8DE7602D1EBDC800D0579F /* Debug */,
@@ -530,7 +530,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8A8DE7622D1EBDC800D0579F /* Build configuration list for PBXNativeTarget "JRK_IOS" */ = {
+		8A8DE7622D1EBDC800D0579F /* Build configuration list for PBXNativeTarget "JRK_Aalter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8A8DE7632D1EBDC800D0579F /* Debug */,
@@ -539,7 +539,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8A8DE7652D1EBDC800D0579F /* Build configuration list for PBXNativeTarget "JRK_IOSTests" */ = {
+		8A8DE7652D1EBDC800D0579F /* Build configuration list for PBXNativeTarget "JRK_AalterTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8A8DE7662D1EBDC800D0579F /* Debug */,
@@ -548,7 +548,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8A8DE7682D1EBDC800D0579F /* Build configuration list for PBXNativeTarget "JRK_IOSUITests" */ = {
+		8A8DE7682D1EBDC800D0579F /* Build configuration list for PBXNativeTarget "JRK_AalterUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8A8DE7692D1EBDC800D0579F /* Debug */,
