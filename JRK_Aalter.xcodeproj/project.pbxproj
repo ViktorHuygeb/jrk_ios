@@ -29,9 +29,22 @@
 		8A8DE7582D1EBDC800D0579F /* JRK_AalterUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JRK_AalterUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8AB156952D26E3E20058B1B2 /* Exceptions for "JRK_Aalter" folder in "JRK_AalterTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Preview Content/TestData.swift",
+			);
+			target = 8A8DE74D2D1EBDC800D0579F /* JRK_AalterTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		8A8DE7402D1EBDC700D0579F /* JRK_Aalter */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8AB156952D26E3E20058B1B2 /* Exceptions for "JRK_Aalter" folder in "JRK_AalterTests" target */,
+			);
 			path = JRK_Aalter;
 			sourceTree = "<group>";
 		};

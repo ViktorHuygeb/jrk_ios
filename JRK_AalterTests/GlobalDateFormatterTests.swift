@@ -9,6 +9,7 @@ import Foundation
 @testable import JRK_Aalter
 import Testing
 
+@Suite
 struct GlobalDateFormatterTests {
     @Suite("Date from strings")
     struct GlobalDateFormatterDateTests {
