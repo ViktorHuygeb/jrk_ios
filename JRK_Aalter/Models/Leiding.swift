@@ -25,7 +25,7 @@ extension Leiding {
 
 extension Leiding {
     static var sampleData: [Leiding] = [
-        Leiding(id: 1, voornaam: "Viktor", achternaam: "Huygebaert", email: "viktorhuygebaert04@gmail.com", straat: "Sint-Jozefstraat", huisnummer: "1", postcode: 9880, stad: "Aalter", geboortedatum: GlobalDateFormatter.shared.date(from: "06/05/2004") ?? Date()),
-        Leiding(id: 2, voornaam: "Batist", achternaam: "Huygebaert", email: "viktorhuygebaert04@gmail.com", straat: "Sint-Jozefstraat", huisnummer: "1", postcode: 9880, stad: "Aalter", geboortedatum: GlobalDateFormatter.shared.date(from: "01/11/2000") ?? Date())
+        Leiding(id: 1, voornaam: "Viktor", achternaam: "Huygebaert", email: "viktorhuygebaert04@gmail.com", straat: "Sint-Jozefstraat", huisnummer: "1", postcode: 9880, stad: "Aalter", geboortedatum: GlobalDateFormatter.shared.getDate(from: "06/05/2004") ?? Date()),
+        Leiding(id: 2, voornaam: "Batist", achternaam: "Huygebaert", email: "viktorhuygebaert04@gmail.com", straat: "Sint-Jozefstraat", huisnummer: "1", postcode: 9880, stad: "Aalter", geboortedatum: GlobalDateFormatter.shared.getDate(from: "01/11/2000") ?? Date())
     ]
 }

@@ -45,13 +45,13 @@ class ActiviteitStore: ObservableObject {
     }
     
     func save(activiteiten: [Activiteit]) async throws {
-        let saveTask = Task {
-            let activiteitenData = try JSONEncoder().encode(activiteiten)
-            let outfile = try Self.fileURL()
-            try activiteitenData.write(to: outfile)
-        }
-        
-        _ = try await saveTask.value // the _ makes sure that the error gets propagated, but shows that we are not interested in the return of the task
+//        let saveTask = Task {
+//            let activiteitenData = try JSONEncoder().encode(activiteiten)
+//            let outfile = try Self.fileURL()
+//            try activiteitenData.write(to: outfile)
+//        }
+//        
+//        _ = try await saveTask.value // the _ makes sure that the error gets propagated, but shows that we are not interested in the return of the task
         
     }
 }
