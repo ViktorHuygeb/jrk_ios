@@ -27,8 +27,8 @@ struct GlobalDateFormatter {
         return df
     }()
     
-    func getDateJsonString(from date: Date) -> String {
-        return Self.dateFormatterIsoSubstring.string(from: date)
+    func getDateISOString(from date: Date) -> String {
+        return date.ISO8601Format()
     }
     
     func getDate(fromIsoSubstring string: String) -> Date? {
