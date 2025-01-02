@@ -4,6 +4,7 @@
 //
 //  Created by Viktor Huygebaert on 02/01/2025.
 //
+
 import Foundation
 
 struct GenericJSON<Element: Decodable>: Decodable {

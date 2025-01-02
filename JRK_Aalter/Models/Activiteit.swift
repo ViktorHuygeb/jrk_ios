@@ -26,9 +26,9 @@ extension Activiteit {
 extension Activiteit{
     static var sampleData: [Activiteit] {
         return [
-            Activiteit(id: 1, leidingId: 1, activiteitNaam: "Activiteit 1", datum: GlobalDateFormatter.shared.getDate(from: "12/01/2025") ?? Date(), beschrijving: "De eerste super leuke activiteit op de website!", prijs: 0.00, moetInschrijven: false),
-            Activiteit(id: 2, leidingId: 1, activiteitNaam: "Activiteit 2", datum: GlobalDateFormatter.shared.getDate(from: "25/01/2025") ?? Date(), beschrijving: "Dit is de 2e activiteit voor dit kalendertje, het is weer een super leuke activiteit vol leuks en andere probeersels. We verwachten jullie om 14.00 uur aan het lokaal, en jullie mogen terug worden opgehaald om 17.00 uur. Inschrijven is verplicht.", prijs: 4.00, moetInschrijven: true),
-            Activiteit(id: 3, leidingId: 2, activiteitNaam: "Activiteit 3", datum: GlobalDateFormatter.shared.getDate(from: "09/02/2025") ?? Date(), beschrijving: "Dit is de 3e activiteit voor dit kalendertje, het is weer een super leuke activiteit vol leuks en andere probeersels. We verwachten jullie om 14.00 uur aan het lokaal, en jullie mogen terug worden opgehaald om 17.00 uur. Inschrijven is verplicht.", prijs: 0.00, moetInschrijven: true)
+            Activiteit(id: 1, leidingId: 1, activiteitNaam: "Activiteit 1", datum: GlobalDateFormatter.shared.date(from: "12/01/2025") ?? Date(), beschrijving: "De eerste super leuke activiteit op de website!", prijs: 0.00, moetInschrijven: false),
+            Activiteit(id: 2, leidingId: 1, activiteitNaam: "Activiteit 2", datum: GlobalDateFormatter.shared.date(from: "25/01/2025") ?? Date(), beschrijving: "Dit is de 2e activiteit voor dit kalendertje, het is weer een super leuke activiteit vol leuks en andere probeersels. We verwachten jullie om 14.00 uur aan het lokaal, en jullie mogen terug worden opgehaald om 17.00 uur. Inschrijven is verplicht.", prijs: 4.00, moetInschrijven: true),
+            Activiteit(id: 3, leidingId: 2, activiteitNaam: "Activiteit 3", datum: GlobalDateFormatter.shared.date(from: "09/02/2025") ?? Date(), beschrijving: "Dit is de 3e activiteit voor dit kalendertje, het is weer een super leuke activiteit vol leuks en andere probeersels. We verwachten jullie om 14.00 uur aan het lokaal, en jullie mogen terug worden opgehaald om 17.00 uur. Inschrijven is verplicht.", prijs: 0.00, moetInschrijven: true)
         ]
     }
 }
@@ -48,7 +48,7 @@ extension Activiteit: Decodable {
         let indexOfT = dateString.firstIndex(of: "T") ?? dateString.endIndex
         let isolatedDateString = dateString[dateString.startIndex..<indexOfT]
         
-        return GlobalDateFormatter.shared.getDate(fromIsoSubstring: String(isolatedDateString))
+        return GlobalDateFormatter.shared.date(fromIsoSubstring: String(isolatedDateString))
     }
     
     init(from decoder: Decoder) throws {

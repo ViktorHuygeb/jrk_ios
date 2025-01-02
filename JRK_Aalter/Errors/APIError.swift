@@ -7,16 +7,19 @@
 
 import Foundation
 
-enum JRKError: Error {
+enum APIError: Error {
     case networkError
+    case missingData
     case unexpectedError(error: Error)
 }
 
-extension JRKError: LocalizedError {
+extension APIError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .networkError:
             return NSLocalizedString("Er is een fout opgetreden tijdens het ophalen van data over het netwerk.", comment: "")
+        case .missingData:
+            return NSLocalizedString("Er is geen data beschikbaar.", comment: "")
         case .unexpectedError(let error):
             return NSLocalizedString("Er is een onverwatche fout opgetreden. \(error.localizedDescription)", comment:"")
         }

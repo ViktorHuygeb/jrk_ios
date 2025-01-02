@@ -7,25 +7,24 @@
 import SwiftUI
 
 struct ActiviteitenView: View {
-    // TODO - Make toolbarcontent a seperate function to have a top and bottom toolbar
-    @StateObject private var viewModel = ActiviteitenViewModel()
+    @AppStorage("lastUpdated") var lastUpdated = Date.distantFuture.timeIntervalSince1970
+    @StateObject internal var viewModel = ActiviteitenViewModel()
     @Environment(\.scenePhase) private var scenePhase
     
     var body: some View {
         NavigationStack{
             List($viewModel.activiteiten, id: \.id) {$activiteit in
-                NavigationLink(destination: ActiviteitDetailView(activiteit: $activiteit)){
-                    ActiviteitCardView(activiteit: activiteit)
+                ForEach($viewModel.activiteiten){ $activiteit in
+                    NavigationLink(destination: ActiviteitDetailView(activiteit: $activiteit)){
+                        ActiviteitCardView(activiteit: activiteit)
+                    }
                 }
+                .onDelete(perform: viewModel.deleteActiviteiten(indexes:))
                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 20))
             }
             .navigationTitle("Activiteiten")
-            .toolbar{
-                Button(action: {viewModel.openAddSheet()}){
-                    Image(systemName: "plus")
-                }
-            }
         }
+        .toolbar(content: toolbarContent)
         .sheet(isPresented: $viewModel.isPresentingNewActiviteitView){
             NewActiviteitSheet(activiteiten: $viewModel.activiteiten, isPresentingNewActiviteitVew: $viewModel.isPresentingNewActiviteitView)
                 .accentColor(Color.red)

@@ -27,19 +27,19 @@ struct GlobalDateFormatter {
         return df
     }()
     
-    func getDateISOString(from date: Date) -> String {
+    func dateISOString(from date: Date) -> String {
         return date.ISO8601Format()
     }
     
-    func getDate(fromIsoSubstring string: String) -> Date? {
+    func date(fromIsoSubstring string: String) -> Date? {
         return Self.dateFormatterIsoSubstring.date(from: string)
     }
     
-    func getDateString(from date: Date) -> String {
+    func dateString(from date: Date) -> String {
         return Self.dateFormatterDayMonthYear.string(from: date)
     }
     
-    func getDate(from string: String) -> Date? {
+    func date(from string: String) -> Date? {
         return Self.dateFormatterDayMonthYear.date(from: string)
     }
 }
