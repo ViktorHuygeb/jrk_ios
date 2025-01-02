@@ -13,7 +13,7 @@ struct ActiviteitenView: View {
     
     var body: some View {
         NavigationStack{
-            List($viewModel.activiteiten, id: \.id) {$activiteit in
+            List() {
                 ForEach($viewModel.activiteiten){ $activiteit in
                     NavigationLink(destination: ActiviteitDetailView(activiteit: $activiteit)){
                         ActiviteitCardView(activiteit: activiteit)
