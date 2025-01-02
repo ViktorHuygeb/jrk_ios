@@ -7,15 +7,13 @@
 import SwiftUI
 
 struct ActiviteitenView: View {
-    @Binding var activiteiten: [Activiteit]
+    // TODO - Make toolbarcontent a seperate function to have a top and bottom toolbar
+    @StateObject private var viewModel = ActiviteitenViewModel()
     @Environment(\.scenePhase) private var scenePhase
-    @State var isPresentingNewActiviteitView = false
-    
-    let saveAction: () -> Void
     
     var body: some View {
         NavigationStack{
-            List($activiteiten, id: \.id) {$activiteit in
+            List($viewModel.activiteiten, id: \.id) {$activiteit in
                 NavigationLink(destination: ActiviteitDetailView(activiteit: $activiteit)){
                     ActiviteitCardView(activiteit: activiteit)
                 }
@@ -23,26 +21,35 @@ struct ActiviteitenView: View {
             }
             .navigationTitle("Activiteiten")
             .toolbar{
-                Button(action: {isPresentingNewActiviteitView = true}){
+                Button(action: {viewModel.openAddSheet()}){
                     Image(systemName: "plus")
                 }
             }
         }
-        .accentColor(Color.red)
-        .sheet(isPresented: $isPresentingNewActiviteitView){
-            NewActiviteitSheet(activiteiten: $activiteiten, isPresentingNewActiviteitVew: $isPresentingNewActiviteitView)
+        .sheet(isPresented: $viewModel.isPresentingNewActiviteitView){
+            NewActiviteitSheet(activiteiten: $viewModel.activiteiten, isPresentingNewActiviteitVew: $viewModel.isPresentingNewActiviteitView)
                 .accentColor(Color.red)
         }
         .onChange(of: scenePhase) { phase in
             if phase == .inactive {
-                saveAction()
+                viewModel.saveActiviteit()
             }
         }
+        .onAppear {
+            UIRefreshControl.appearance().tintColor = .red
+        }
+        .task {
+            await viewModel.fetchActiviteiten()
+        }
+        .refreshable {
+            await viewModel.fetchActiviteiten()
+        }
+        .accentColor(.red)
     }
 }
 
 struct ActiviteitenView_Previews: PreviewProvider{
     static var previews: some View {
-        ActiviteitenView(activiteiten: .constant(Activiteit.sampleData), saveAction: {})
+        ActiviteitenView()
     }
 }

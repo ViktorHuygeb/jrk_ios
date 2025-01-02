@@ -57,17 +57,17 @@ extension Activiteit: Decodable {
         let rawLeidingId = try? values.decode(Int.self, forKey: .leidingId)
         let rawActiviteitNaam = try? values.decode(String.self, forKey: .activiteitNaam)
         let rawDatumString = try? values.decode(String.self, forKey: .datum)
-        //        let rawBeschrijving = try? values.decode(String.self, forKey: .beschrijving)
-//        let rawPrijs = try? values.decode(Double.self, forKey: .prijs)
-//        let rawMoetInschrijven = try? values.decode(Bool.self, forKey: .moetInschrijven)
+                let rawBeschrijving = try? values.decode(String.self, forKey: .beschrijving)
+        let rawPrijs = try? values.decode(Double.self, forKey: .prijs)
+        let rawMoetInschrijven = try? values.decode(Bool.self, forKey: .moetInschrijven)
         
         guard let id = rawId,
               let leidingId = rawLeidingId,
               let activiteitNaam = rawActiviteitNaam,
-              let datumString = rawDatumString//,
-//              let beschrijving = rawBeschrijving,
-//              let prijs = rawPrijs,
-//              let moetInschrijven = rawMoetInschrijven
+              let datumString = rawDatumString,
+              let beschrijving = rawBeschrijving,
+              let prijs = rawPrijs,
+              let moetInschrijven = rawMoetInschrijven
         else {
             throw ActiviteitError.missingData
         }
@@ -76,8 +76,8 @@ extension Activiteit: Decodable {
         self.leidingId = leidingId
         self.activiteitNaam = activiteitNaam
         self.datum = Activiteit.getDate(fromISO: datumString) ?? Date() // we need to use the static function, because normal static members can't be accessed before initialization of all properties
-        self.beschrijving = Activiteit.emptyActiviteit.beschrijving
-        self.prijs = Activiteit.emptyActiviteit.prijs
-        self.moetInschrijven = Activiteit.emptyActiviteit.moetInschrijven
+        self.beschrijving = beschrijving
+        self.prijs = prijs
+        self.moetInschrijven = moetInschrijven
     }
 }

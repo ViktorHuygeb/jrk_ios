@@ -17,30 +17,10 @@ struct JRK_Aalter: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                ActiviteitenView(activiteiten: $store.activiteiten){
-                    Task {
-                        do {
-                            try await store.save(activiteiten: store.activiteiten)
-                        } catch {
-                            errorWrapper = ErrorWrapper(error: error, guidance: "Probeer later opnieuw.")
-                        }
+                ActiviteitenView()
+                    .tabItem{
+                        Label("Activiteiten", systemImage: "figure.run")
                     }
-                }
-                .task {
-                    do {
-                        try await store.load()
-                    } catch {
-                        errorWrapper = ErrorWrapper(error: error, guidance: "JRK Aalter laadt fake data in en gaat verder.")
-                    }
-                }
-                .sheet(item: $errorWrapper){
-                    store.activiteiten = Activiteit.sampleData
-                } content: { wrapper in
-                    ErrorView(errorWrapper: wrapper)
-                }
-                .tabItem{
-                    Label("Activiteiten", systemImage: "figure.run")
-                }
                     
                 LedenView()
                     .tabItem{
