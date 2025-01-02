@@ -31,7 +31,8 @@ struct JRK_Aalter: App {
                     .tabItem {
                         Label("Profiel", systemImage: "person.crop.circle")
                     }
-            }.accentColor(Color.red)
+            }
+            .accentColor(Color.red)
         }
     }
 }

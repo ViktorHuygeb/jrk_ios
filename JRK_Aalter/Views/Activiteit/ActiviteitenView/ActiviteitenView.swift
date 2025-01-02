@@ -23,8 +23,13 @@ struct ActiviteitenView: View {
                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 20))
             }
             .navigationTitle("Activiteiten")
-            .toolbar(content: toolbarContent)
+            .toolbar{
+                Button(action: {viewModel.openAddSheet()}){
+                    Image(systemName: "plus")
+                }
+            }
         }
+        .toolbar(content: toolbarContent)
         .sheet(isPresented: $viewModel.isPresentingNewActiviteitView){
             NewActiviteitSheet(activiteiten: $viewModel.activiteiten, isPresentingNewActiviteitVew: $viewModel.isPresentingNewActiviteitView)
                 .accentColor(Color.red)
