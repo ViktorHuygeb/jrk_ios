@@ -7,16 +7,13 @@
 import SwiftUI
 
 struct ActiviteitDetailView: View {
+    @AppStorage("isLeiding") var isLeiding: Bool = false
+    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+    
     @Binding var activiteit: Activiteit
     
     @State private var editingActiviteit = Activiteit.emptyActiviteit
     @State private var isPresentingEditView = false
-    
-    private static let dateFormatter: DateFormatter = {
-        let df = DateFormatter()
-        df.dateFormat = "dd/MM/yyyy"
-        return df
-    }()
     
     var body: some View {
         List {
@@ -30,7 +27,7 @@ struct ActiviteitDetailView: View {
                 HStack{
                     Label("Datum", systemImage: "calendar")
                     Spacer()
-                    Text(Self.dateFormatter.string(from: activiteit.datum))
+                    Text(GlobalDateFormatter.shared.dateString(from: activiteit.datum))
                 }
                 .accessibilityElement(children: .combine) //  This is used so screenreaders read the two elements  as one statement: "Datum: datum"
                 HStack {
@@ -45,7 +42,7 @@ struct ActiviteitDetailView: View {
                 Text(activiteit.beschrijving)
             }
             
-            if(activiteit.moetInschrijven){
+            if(activiteit.moetInschrijven && isLoggedIn){
                 Section {
                     Button(action: {}){
                         Text("Inschrijven")
@@ -54,10 +51,12 @@ struct ActiviteitDetailView: View {
             }
         }
         .navigationTitle(activiteit.activiteitNaam)
-        .toolbar {
-            Button ("Bewerk"){
-                editingActiviteit = activiteit
-                isPresentingEditView = true
+        .toolbar{
+            if isLeiding {
+                Button ("Bewerk"){
+                    editingActiviteit = activiteit
+                    isPresentingEditView = true
+                }
             }
         }
         .sheet(isPresented: $isPresentingEditView){

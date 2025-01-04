@@ -8,31 +8,32 @@
 import SwiftUI
 
 struct ProfielView: View {
-    @AppStorage("isLoggedIn") var isLoggedIn = false
-    @AppStorage("isLeiding") var isLeiding = false
+    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+    @ObservedObject var viewModel = ProfielViewModel()
     
     var body: some View {
         NavigationStack {
             VStack() {
                 if isLoggedIn {
-                   Text("Je bent ingelogd")
-                    Button(action: {
-                        isLoggedIn = false
-                        isLeiding = false
-                    }){
+                    Text("Je bent ingelogd")
+                    Button(action: { viewModel.logout() }){
                         Text("Log uit")
                     }
                 } else {
                     Text("Log in om je accountgegevens te bekijken")
                         .font(.headline)
                         .padding(.bottom)
-                    NavigationLink(destination: LoginView()){
+                    Button(action: { viewModel.toLogin() }){
                         Label("Log in", systemImage:("arrow.right.circle"))
                             .labelStyle(.trailingIcon)
                     }
                     .buttonStyle(.borderedProminent)
                 }
-            }.navigationTitle("Profiel")
+            }
+            .navigationTitle("Profiel")
+            .alert(isPresented: $viewModel.hasError){
+                Alert(title: Text("Fout tijdens het uitloggen"), message: Text(viewModel.error?.localizedDescription ?? "Er is een onbekende fout opgetreden tijdens het uitloggen"))
+            }
         }
         .accentColor(.red)
     }

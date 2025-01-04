@@ -8,8 +8,8 @@
 import Foundation
 import Security
 
-struct Keychain <T: Codable> {
-    static func set(_ value: T, forKey key: String) -> Bool {
+struct Keychain {
+    static func set<T: Codable>(_ value: T, forKey key: String) -> Bool {
         do {
             let data = try JSONEncoder().encode(value)
             let query: [CFString: Any] = [
@@ -25,5 +25,16 @@ struct Keychain <T: Codable> {
         } catch {
             return false
         }
+    }
+    
+    static func delete(_ key: String) -> Bool {
+        let query: [CFString: Any] = [
+           kSecClass: kSecClassGenericPassword,
+           kSecAttrAccount: key
+        ]
+        
+        let status = SecItemDelete(query as CFDictionary)
+        
+        return status == errSecSuccess
     }
 }

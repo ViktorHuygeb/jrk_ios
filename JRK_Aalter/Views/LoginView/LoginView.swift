@@ -8,28 +8,35 @@
 import SwiftUI
 
 struct LoginView: View {
-    @StateObject var viewModel: LoginViewModel = LoginViewModel()
+    @StateObject var viewModel = LoginViewModel()
     
     var body: some View {
-        VStack{
-            Text("Log in")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            Spacer()
+        NavigationView {
             Form {
                 Section{
                     TextField("Email", text: $viewModel.email)
+                        .keyboardType(.emailAddress)
+                        .textContentType(.emailAddress)
                         .textInputAutocapitalization(.never)
                         .disabled(viewModel.isAuthenticating)
-                    SecureField("Password", text: $viewModel.password)
+                    SecureField("Wachtwoord", text: $viewModel.password)
+                        .textContentType(.password)
                         .disabled(viewModel.isAuthenticating)
                 }
-                
+//                
                 Button("Login") {
                     Task {
                         await viewModel.login()
                     }
                 }.disabled(viewModel.isAuthenticating)
+            }
+            .navigationTitle("Inloggen")
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction){
+                    Button(action: {viewModel.cancelLogin()}) {
+                        Label("Terug", systemImage: "arrow.left")
+                    }
+                }
             }
         }
         .accentColor(.red)

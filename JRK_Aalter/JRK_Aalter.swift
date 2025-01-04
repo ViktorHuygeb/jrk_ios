@@ -9,30 +9,32 @@ import SwiftUI
 
 @main
 struct JRK_Aalter: App {
-    @StateObject private var store = ActiviteitStore()
-    @State private var errorWrapper: ErrorWrapper?
-    
+    @AppStorage("isLoggingIn") var isLoggingIn: Bool = false
     // TODO - Change Tabview that when using iOS 18 it uses Tab instead
     
     var body: some Scene {
         WindowGroup {
-            TabView {
-                ActiviteitenView()
-                    .tabItem{
-                        Label("Activiteiten", systemImage: "figure.run")
-                    }
+            if isLoggingIn {
+                LoginView()
+            } else {
+                TabView {
+                    ActiviteitenView()
+                        .tabItem{
+                            Label("Activiteiten", systemImage: "figure.run")
+                        }
                     
-                LedenView()
-                    .tabItem{
-                        Label("Leden", systemImage: "person.3.fill")
-                    }
-                
-                ProfielView()
-                    .tabItem {
-                        Label("Profiel", systemImage: "person.crop.circle")
-                    }
+                    LedenView()
+                        .tabItem{
+                            Label("Leden", systemImage: "person.3.fill")
+                        }
+                    
+                    ProfielView()
+                        .tabItem {
+                            Label("Profiel", systemImage: "person.crop.circle")
+                        }
+                }
+                .accentColor(Color.red)
             }
-            .accentColor(Color.red)
         }
     }
 }

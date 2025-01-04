@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Observation
 
 @MainActor
 class LoginViewModel: ObservableObject {
@@ -30,19 +29,15 @@ class LoginViewModel: ObservableObject {
             if response.hasError {
                 throw response.error!
             }
-            else {
-                print(try response.getData().roles)
-                let token = try response.getData().token
-                guard Keychain.set(token, forKey: "jwtToken") else {
-                    throw LoginError.keychainError
-                }
-                
-                print("ik ben hier")
-                UserDefaults.standard.set(true, forKey: "isLoggedIn")
-                UserDefaults.standard.set(try response.getData().roles.contains(.Leiding), forKey: "isLeiding")
-                print("nu hier")
-
+            
+            let token = try response.getData().token
+            guard Keychain.set(token, forKey: "jwtToken") else {
+                throw LoginError.keychainError
             }
+            
+            UserDefaults.standard.set(true, forKey: "isLoggedIn")
+            UserDefaults.standard.set(try response.getData().roles.contains(.Leiding), forKey: "isLeiding")
+            UserDefaults.standard.set(false, forKey: "isLoggingIn")
             isAuthenticating = false
         }
         catch {
@@ -50,5 +45,9 @@ class LoginViewModel: ObservableObject {
             self.error = error as? APIError ?? APIError.unexpectedError(error: error)
             hasError = true
         }
+    }
+    
+    func cancelLogin() {
+        UserDefaults.standard.set(false, forKey: "isLoggingIn")
     }
 }
