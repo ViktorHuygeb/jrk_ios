@@ -16,19 +16,19 @@ class ActiviteitenViewModel: ObservableObject {
     @Published var error: APIError?
     @Published var hasError = false
     
-    let client: JRKClient
+    let client: JRKClient = JRKClient.shared
     
-    init(client: JRKClient = JRKClient()) {
-        self.client = client
+    init() {
         UserDefaults.standard.set(Date.distantFuture.timeIntervalSince1970, forKey: "lastUpdated")
     }
     
     func fetchActiviteiten() async {
         isLoading = true
-        let response: APIResult<[Activiteit]> = await client.getAllItems(from: "activiteiten")
+        let activiteitenResource = Resource(url: "activiteiten", modelType: GenericJSON<Activiteit>.self)
+        let response: APIResult<GenericJSON<Activiteit>> = await client.load(activiteitenResource)
         if (response.isSucces) {
-            activiteiten = try! response.items()
-            activiteitenCount = try! response.itemCount()
+            activiteiten = try! response.getData().items
+            activiteitenCount = try! response.getData().count
             UserDefaults.standard.set(Date.now.timeIntervalSince1970, forKey: "lastUpdated")
         } else {
             hasError = true

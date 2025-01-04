@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GenericJSON<Element: Decodable>: Decodable {
+struct GenericJSON<Element: Codable>: Codable{
     private enum RootCodingKeys: String, CodingKey {
         case items
         case count

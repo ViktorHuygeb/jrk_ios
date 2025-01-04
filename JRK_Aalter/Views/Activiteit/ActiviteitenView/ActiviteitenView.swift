@@ -8,6 +8,7 @@ import SwiftUI
 
 struct ActiviteitenView: View {
     @AppStorage("lastUpdated") var lastUpdated = Date.distantFuture.timeIntervalSince1970
+    @AppStorage("isLeiding") var isLeiding = false
     @StateObject internal var viewModel = ActiviteitenViewModel()
     @Environment(\.scenePhase) private var scenePhase
     
@@ -20,16 +21,12 @@ struct ActiviteitenView: View {
                     }
                 }
                 .onDelete(perform: viewModel.deleteActiviteiten(indexes:))
+                .deleteDisabled(!isLeiding)
                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 20))
             }
             .navigationTitle("Activiteiten")
-            .toolbar{
-                Button(action: {viewModel.openAddSheet()}){
-                    Image(systemName: "plus")
-                }
-            }
+            .toolbar(content: toolbarContent)
         }
-        .toolbar(content: toolbarContent)
         .sheet(isPresented: $viewModel.isPresentingNewActiviteitView){
             NewActiviteitSheet(activiteiten: $viewModel.activiteiten, isPresentingNewActiviteitVew: $viewModel.isPresentingNewActiviteitView)
                 .accentColor(Color.red)

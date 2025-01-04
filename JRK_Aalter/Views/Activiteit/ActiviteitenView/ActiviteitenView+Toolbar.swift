@@ -11,7 +11,12 @@ extension ActiviteitenView {
     
     @ToolbarContentBuilder
     func toolbarContent() -> some ToolbarContent {
-        ToolbarItem() {
+        if isLeiding {
+            ToolbarItem() {
+                Button(action: {viewModel.openAddSheet()}){
+                    Image(systemName: "plus")
+                }
+            }
         }
         ToolbarItemGroup(placement: .bottomBar) {
             Spacer()

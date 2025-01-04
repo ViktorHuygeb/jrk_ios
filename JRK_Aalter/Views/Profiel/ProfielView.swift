@@ -8,15 +8,33 @@
 import SwiftUI
 
 struct ProfielView: View {
+    @AppStorage("isLoggedIn") var isLoggedIn = false
+    @AppStorage("isLeiding") var isLeiding = false
+    
     var body: some View {
-        VStack() {
-            Text("Dit wordt de profielpagina")
-                .font(.headline)
-            Spacer()
+        NavigationStack {
+            VStack() {
+                if isLoggedIn {
+                   Text("Je bent ingelogd")
+                    Button(action: {
+                        isLoggedIn = false
+                        isLeiding = false
+                    }){
+                        Text("Log uit")
+                    }
+                } else {
+                    Text("Log in om je accountgegevens te bekijken")
+                        .font(.headline)
+                        .padding(.bottom)
+                    NavigationLink(destination: LoginView()){
+                        Label("Log in", systemImage:("arrow.right.circle"))
+                            .labelStyle(.trailingIcon)
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+            }.navigationTitle("Profiel")
         }
-        .frame(maxWidth: .infinity)
-        .background(Color.blue)
-        .edgesIgnoringSafeArea(.horizontal)
+        .accentColor(.red)
     }
 }
 

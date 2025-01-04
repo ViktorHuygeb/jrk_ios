@@ -13,9 +13,9 @@ class APIResult<T: Decodable>{
     private var count: Int?
     var error: APIError?
     
-    internal init(data: T, count: Int){
+    internal init(data: T){
         self.data = data
-        self.count = count
+        self.count = nil
         self.error = nil
     }
     
@@ -25,7 +25,7 @@ class APIResult<T: Decodable>{
         self.error = error
     }
     
-    func items() throws -> T{
+    func getData() throws -> T {
         guard let unwrappedData = data else {
             throw APIError.missingData
         }

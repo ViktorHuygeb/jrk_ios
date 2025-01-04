@@ -35,16 +35,4 @@ struct ActiviteitenTests {
             #expect(decodedActiviteiten.items[3].datum == expectedDate)
         }
     }
-    
-    @Suite("Activiteiten Network Tests")
-    struct ActiviteitenNetworkTests {
-        @Test("Client fetches activiteiten")
-        func ClientFetchesActiviteiten() async throws {
-            let downloader = TestDownloader()
-            let client = JRKClient(downloader: downloader)
-            let activiteiten = try await client.activiteiten
-            
-            #expect(activiteiten.count == 4)
-        }
-    }
 }

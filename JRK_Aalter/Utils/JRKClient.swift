@@ -7,33 +7,83 @@
 
 import Foundation
 
-// TODO - Make an extension so the JSONDecoder always uses the right date decoding strategy
+enum HTTPMethod {
+    case get([URLQueryItem])
+    case post(Data?)
+    case delete
+    
+    var name: String {
+        switch self {
+        case .get: return "GET"
+        case .post: return "POST"
+        case .delete: return "DELETE"
+        }
+    }
+}
+
+struct Resource<T: Codable> {
+    let url: String
+    var method: HTTPMethod = .get([])
+    var modelType: T.Type
+}
+
+// TODO - Make the errors more in line with the errorResponse from the api
+
 actor JRKClient {
-    var items: [Activiteit] {
-        get async throws {
-            let data = try await downloader.httpData(from: feedURL)
-            let allActiviteiten = try decoder.decode(GenericJSON<Activiteit>.self, from: data)
-            return allActiviteiten.items
-       }
+    
+    static let shared = JRKClient()
+    private let session: URLSession
+    
+    private init() {
+        let configuration = URLSessionConfiguration.default
+        configuration.httpAdditionalHeaders = ["Content-Type": "application/json"]
+        self.session = URLSession(configuration: configuration)
     }
     
-    func getAllItems<T: Decodable>(from url: String) async -> APIResult<[T]> {
+    func load<T: Codable>(_ resource: Resource<T>) async -> APIResult<T> {
+        var request = URLRequest(url: feedURL.appendingPathComponent(resource.url))
+        
+        switch resource.method {
+        case .get(let queryItems):
+            var components = URLComponents(url: feedURL.appending(component: resource.url), resolvingAgainstBaseURL: false)
+            components?.queryItems = queryItems
+            guard let url = components?.url else {
+                return APIResult(error: APIError.badRequest)
+            }
+            
+            request = URLRequest(url: url)
+        
+        case .post(let data):
+            request.httpMethod = resource.method.name
+            request.httpBody = data
+            
+        case .delete:
+            request.httpMethod = resource.method.name
+        }
+        
         do {
-            let fetchedData = try await downloader.httpData(from: feedURL.appending(component: url))
-            let decodedData = try decoder.decode(GenericJSON<T>.self, from: fetchedData)
-            return APIResult<[T]>(data: decodedData.items, count: decodedData.count)
+            let (data, response) = try await session.data(for: request)
+            
+            if let httpResponse = response as? HTTPURLResponse {
+                switch httpResponse.statusCode {
+                case 401:
+                    let errorResult = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                    return APIResult<T>(error: APIError.unauthorized(message: errorResult.message))
+                case 404:
+                    let errorResult = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                    return APIResult<T>(error: APIError.notFound(message: errorResult.message))
+                default: break
+                }
+            }
+            
+            let result = try JSONDecoder().decode(resource.modelType, from: data)
+            return APIResult<T>(data: result)
         } catch {
-            return APIResult<[T]>(error: error as? APIError ?? APIError.unexpectedError(error: error))
+            print(String(describing: error))
+            return APIResult<T>(error: error as? APIError ?? APIError.unexpectedError(error: error))
         }
     }
     
-    private lazy var decoder = JSONDecoder()
-    
     private let feedURL = URL(string: "https://webservices-jrk.onrender.com/api/")!
-    
-    private let downloader: any HTTPDataDownloader
-    
-    init(downloader: any HTTPDataDownloader = URLSession.shared){
-        self.downloader = downloader
-    }
 }
+
