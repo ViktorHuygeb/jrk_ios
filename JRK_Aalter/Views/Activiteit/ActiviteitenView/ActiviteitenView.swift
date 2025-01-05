@@ -37,7 +37,7 @@ struct ActiviteitenView: View {
         }
         .sheet(isPresented: $viewModel.isPresentingNewActiviteitView){
             NavigationStack {
-                ActiviteitEditView(editingActiviteit: viewModel.newActiviteit)
+                ActiviteitEditView(activiteit: $viewModel.newActiviteit)
                     .navigationTitle("Nieuwe activiteit")
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction){

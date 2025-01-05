@@ -9,17 +9,13 @@ import Foundation
 
 @MainActor
 class ActiviteitEditViewModel: ObservableObject {
-    @Published var activiteit: Activiteit
+    @Published var activiteit: Activiteit = Activiteit.emptyActiviteit
     @Published var leiding: [Leiding] = []
     @Published var isLoading: Bool = false
     @Published var error: (any Error)?
     @Published var hasError: Bool = false
     
     var client: JRKClient = JRKClient.shared
-    
-    init(currentActiviteit: Activiteit) {
-        self.activiteit = currentActiviteit
-    }
     
     func fetchLeiding() async {
         isLoading = true

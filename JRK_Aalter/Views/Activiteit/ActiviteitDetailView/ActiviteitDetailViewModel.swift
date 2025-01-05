@@ -40,7 +40,6 @@ class ActiviteitDetailViewModel: ObservableObject {
             encoder.dateEncodingStrategy = .iso8601
             encoder.outputFormatting = [.prettyPrinted]
             let body = try encoder.encode(edititingActiviteit)
-            print(String(data: body, encoding: .utf8))
             let resource = Resource(url: "activiteiten/\(edititingActiviteit.id)", method: .put(body), modelType: Activiteit.self)
             let response = await client.load(resource)
             

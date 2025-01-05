@@ -18,7 +18,8 @@ struct Activiteit: Identifiable, Encodable{
 
 extension Activiteit {
     static var emptyActiviteit: Activiteit {
-        Activiteit(id: 0, leidingId: 1, activiteitNaam: "", datum: Date(), beschrijving: "", prijs: 0, moetInschrijven: false)
+        // We set the default id to 999. This gets ignored by our api, but the call does not work if the id is smaller than 1
+        Activiteit(id: 999, leidingId: 1, activiteitNaam: "", datum: Date(), beschrijving: "", prijs: 0, moetInschrijven: false)
     }
 }
 

@@ -60,7 +60,7 @@ struct ActiviteitDetailView: View {
         }
         .sheet(isPresented: $viewModel.isPresentingEditView){
             NavigationStack {
-                ActiviteitEditView(editingActiviteit: viewModel.edititingActiviteit)
+                ActiviteitEditView(activiteit: $viewModel.edititingActiviteit)
                     .navigationTitle(viewModel.currentActiviteit.activiteitNaam)
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
