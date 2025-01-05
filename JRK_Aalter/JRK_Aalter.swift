@@ -21,12 +21,12 @@ struct JRK_Aalter: App {
                         .tabItem{
                             Label("Activiteiten", systemImage: "figure.run")
                         }
-                    if isLeiding {
-                        LedenView()
-                            .tabItem{
-                                Label("Leden", systemImage: "person.3.fill")
-                            }
-                    }
+//                    if isLeiding {
+//                        LedenView()
+//                            .tabItem{
+//                                Label("Leden", systemImage: "person.3.fill")
+//                            }
+//                    }
                     
                     ProfielView()
                         .tabItem {

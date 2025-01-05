@@ -60,7 +60,7 @@ struct ActiviteitDetailView: View {
         }
         .sheet(isPresented: $viewModel.isPresentingEditView){
             NavigationStack {
-                ActiviteitEditView(activiteit: $viewModel.edititingActiviteit)
+                ActiviteitEditView(editingActiviteit: viewModel.edititingActiviteit)
                     .navigationTitle(viewModel.currentActiviteit.activiteitNaam)
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
@@ -74,7 +74,7 @@ struct ActiviteitDetailView: View {
                                     await viewModel.saveActiviteit()
                                 }
                             }
-                            .disabled(viewModel.isSaving)
+                            .disabled(viewModel.isSaving || !viewModel.isActiviteitValid())
                         }
                     }
                     .alert(isPresented: $viewModel.hasError){

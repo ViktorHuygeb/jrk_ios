@@ -52,10 +52,13 @@ class ActiviteitDetailViewModel: ObservableObject {
             isSaving = false
             isPresentingEditView = false
         }catch {
-            print("Ik heb de error gecatched: \(error.localizedDescription)")
             self.error = error as? APIError ?? APIError.unexpectedError(error: error)
             hasError = true
             isSaving = false
         }
+    }
+    
+    func isActiviteitValid() -> Bool {
+        return !edititingActiviteit.activiteitNaam.isEmpty && !edititingActiviteit.beschrijving.isEmpty
     }
 }

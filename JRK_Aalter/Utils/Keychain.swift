@@ -5,6 +5,9 @@
 //  Created by Viktor Huygebaert on 04/01/2025.
 //
 
+// This Keychain code came from the source code of following tutorial: https://azamsharp.medium.com/the-complete-guide-to-json-web-tokens-jwt-authentication-in-ios-0b30b3eebacc
+// Found at: https://github.com/azamsharp/ExamPrepCode/blob/main/ExamPrep/ExamPrep/Utilities/KeychainWrapper.swift
+
 import Foundation
 import Security
 

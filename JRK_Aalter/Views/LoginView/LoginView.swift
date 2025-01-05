@@ -11,7 +11,7 @@ struct LoginView: View {
     @StateObject var viewModel = LoginViewModel()
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             Form {
                 Section{
                     TextField("Email", text: $viewModel.email)

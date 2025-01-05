@@ -36,13 +36,29 @@ struct ActiviteitenView: View {
             }
         }
         .sheet(isPresented: $viewModel.isPresentingNewActiviteitView){
-            NewActiviteitSheet(activiteiten: $viewModel.activiteiten, isPresentingNewActiviteitVew: $viewModel.isPresentingNewActiviteitView)
-                .accentColor(Color.red)
-        }
-        .onChange(of: scenePhase) { phase in
-            if phase == .inactive {
-                viewModel.saveActiviteit()
+            NavigationStack {
+                ActiviteitEditView(editingActiviteit: viewModel.newActiviteit)
+                    .navigationTitle("Nieuwe activiteit")
+                    .toolbar {
+                        ToolbarItem(placement: .cancellationAction){
+                            Button("Annuleer") {
+                                viewModel.isPresentingNewActiviteitView = false
+                            }
+                        }
+                        ToolbarItem(placement: .confirmationAction) {
+                            Button("Bewaar"){
+                                Task {
+                                    await viewModel.saveActiviteit()
+                                }
+                            }
+                            .disabled(viewModel.isSaving || !viewModel.isActiviteitValid())
+                        }
+                    }
+                    .alert(isPresented: $viewModel.hasError){
+                        Alert(title: Text("Waarschuwing"), message: Text(viewModel.error?.localizedDescription ?? "Er is een fout opgetreden"))
+                    }
             }
+            .accentColor(.red)
         }
         .onAppear {
             UIRefreshControl.appearance().tintColor = .red

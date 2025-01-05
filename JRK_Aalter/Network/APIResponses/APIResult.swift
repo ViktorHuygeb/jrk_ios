@@ -27,14 +27,14 @@ class APIResult<T: Decodable>{
     
     func getData() throws -> T {
         guard let unwrappedData = data else {
-            throw APIError.missingData
+            throw APIError.missingData(forType: "")
         }
         return unwrappedData
     }
     
     func itemCount() throws -> Int {
         guard let unwrappedCount = count else {
-            throw APIError.missingData
+            throw APIError.missingData(forType: "item count")
         }
         return unwrappedCount
     }

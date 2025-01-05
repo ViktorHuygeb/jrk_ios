@@ -5,6 +5,8 @@
 //  Created by Viktor Huygebaert on 02/01/2025.
 //
 
+// A great deal of inspiration about the data fetching came from following source: https://azamsharp.medium.com/the-complete-guide-to-json-web-tokens-jwt-authentication-in-ios-0b30b3eebacc
+
 import Foundation
 
 enum HTTPMethod {
@@ -60,8 +62,9 @@ actor JRKClient {
             guard let url = components?.url else {
                 return APIResult(error: APIError.badRequest(message: "Er is een fout opgetreden tijdens het opvragen van de data."))
             }
-            
+            print("Ik kom hier in de .get case")
             request = URLRequest(url: url)
+            
         
         case .post(let data), .put(let data):
             request.httpMethod = resource.method.name
@@ -75,10 +78,10 @@ actor JRKClient {
             let (data, response) = try await session.data(for: request)
             
             if let httpResponse = response as? HTTPURLResponse {
+                print("dit is onze response code: \(httpResponse.statusCode)")
                 switch httpResponse.statusCode {
                 case 400:
                     let errorResult = try JSONDecoder().decode(ErrorResponse.self, from: data)
-                    print(errorResult.details.body)
                     return APIResult<T>(error: APIError.badRequest(message: errorResult.message))
                 case 401:
                     let errorResult = try JSONDecoder().decode(ErrorResponse.self, from: data)
@@ -91,6 +94,7 @@ actor JRKClient {
             }
             
             let result = try JSONDecoder().decode(resource.modelType, from: data)
+            print("ik heb succesvol gedecode")
             return APIResult<T>(data: result)
         } catch {
             print(String(describing: error))

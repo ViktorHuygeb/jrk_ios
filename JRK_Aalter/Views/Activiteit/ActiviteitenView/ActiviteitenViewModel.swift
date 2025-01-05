@@ -12,9 +12,11 @@ class ActiviteitenViewModel: ObservableObject {
     @Published var activiteiten: [Activiteit] = []
     @Published var activiteitenCount: Int = 0
     @Published var isLoading = false
+    @Published var isSaving = false
     @Published var isPresentingNewActiviteitView = false
     @Published var error: APIError?
     @Published var hasError = false
+    @Published var newActiviteit = Activiteit.emptyActiviteit
     
     let client: JRKClient = JRKClient.shared
     
@@ -62,7 +64,34 @@ class ActiviteitenViewModel: ObservableObject {
         }
     }
     
-    func saveActiviteit(){
-        let haha = 1 + 1
+    func isActiviteitValid() -> Bool {
+        return !newActiviteit.activiteitNaam.isEmpty && !newActiviteit.beschrijving.isEmpty
+    }
+    
+    func saveActiviteit() async {
+        do {
+            isSaving = true
+            
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .iso8601
+            encoder.outputFormatting = [.prettyPrinted]
+            
+            let body = try encoder.encode(newActiviteit)
+            let resource = Resource(url: "activiteiten", method: .post(body), modelType: Activiteit.self)
+            
+            let response = await client.load(resource)
+            
+            if response.hasError {
+                throw response.error!
+            }
+            
+            isPresentingNewActiviteitView = false
+            isSaving = false
+            await fetchActiviteiten()
+        } catch {
+            self.error = error as? APIError ?? APIError.unexpectedError(error: error)
+            hasError = true
+            isSaving = false
+        }
     }
 }
