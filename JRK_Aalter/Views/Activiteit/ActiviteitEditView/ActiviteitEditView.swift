@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ActiviteitEditView: View {
-    @ObservedObject private var viewModel: ActiviteitEditViewModel = ActiviteitEditViewModel()
+    @StateObject private var viewModel: ActiviteitEditViewModel = ActiviteitEditViewModel()
     @Binding var activiteit: Activiteit
     
     var body: some View {
@@ -40,7 +40,7 @@ struct ActiviteitEditView: View {
             
             Section(header: Text("Leidinginfo")){
                 Picker("Leiding", selection: $activiteit.leidingId){
-                    ForEach($viewModel.leiding, id: \.id) { $leiding in
+                    ForEach(viewModel.leiding) { leiding in
                         Text("\(leiding.voornaam) \(leiding.achternaam)").tag(leiding.id)
                     }
                 }
