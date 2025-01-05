@@ -13,8 +13,9 @@ struct ActiviteitEditView: View {
         Form{
             Section(header: Text("Activiteit info")) {
                 TextField("Naam activiteit", text:$activiteit.activiteitNaam) // $ is used to create a binding to the activiteit
+                
                 HStack {
-                    DatePicker(selection: $activiteit.datum, in:Date.now..., displayedComponents: .date){
+                    DatePicker(selection: $activiteit.datum, in:Date()..., displayedComponents: .date){
                         Text("Datum")
                     }
                 }
