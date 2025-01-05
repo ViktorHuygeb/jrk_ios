@@ -10,12 +10,14 @@ import Foundation
 enum HTTPMethod {
     case get([URLQueryItem])
     case post(Data?)
+    case put(Data?)
     case delete
     
     var name: String {
         switch self {
         case .get: return "GET"
         case .post: return "POST"
+        case .put: return "PUT"
         case .delete: return "DELETE"
         }
     }
@@ -30,13 +32,23 @@ struct Resource<T: Codable> {
 // TODO - Make the errors more in line with the errorResponse from the api
 
 actor JRKClient {
-    
     static let shared = JRKClient()
+    
+    private let feedURL = URL(string: "https://webservices-jrk.onrender.com/api/")!
     private let session: URLSession
     
     private init() {
         let configuration = URLSessionConfiguration.default
         configuration.httpAdditionalHeaders = ["Content-Type": "application/json"]
+        
+        let token: String? = try? Keychain.get("jwtToken")
+        
+        if let token {
+            print("Ik steek de token in de header \(token)")
+            configuration.httpAdditionalHeaders?["Authorization"] = "Bearer \(token)"
+        }
+        
+        print("Ik maak de urlsessie")
         self.session = URLSession(configuration: configuration)
     }
     
@@ -53,7 +65,7 @@ actor JRKClient {
             
             request = URLRequest(url: url)
         
-        case .post(let data):
+        case .post(let data), .put(let data):
             request.httpMethod = resource.method.name
             request.httpBody = data
             
@@ -83,7 +95,5 @@ actor JRKClient {
             return APIResult<T>(error: error as? APIError ?? APIError.unexpectedError(error: error))
         }
     }
-    
-    private let feedURL = URL(string: "https://webservices-jrk.onrender.com/api/")!
 }
 

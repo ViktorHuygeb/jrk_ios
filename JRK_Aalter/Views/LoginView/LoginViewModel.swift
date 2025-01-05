@@ -9,8 +9,8 @@ import Foundation
 
 @MainActor
 class LoginViewModel: ObservableObject {
-    @Published var email: String = "viktorhuygebaert04@gmail.com"
-    @Published var password: String = "12345678"
+    @Published var email: String = ""
+    @Published var password: String = ""
     @Published var error: (any Error)?
     @Published var hasError: Bool = false
     @Published var isAuthenticating: Bool = false
@@ -37,7 +37,6 @@ class LoginViewModel: ObservableObject {
             
             UserDefaults.standard.set(true, forKey: "isLoggedIn")
             UserDefaults.standard.set(try response.getData().roles.contains(.Leiding), forKey: "isLeiding")
-            UserDefaults.standard.set(false, forKey: "isLoggingIn")
             isAuthenticating = false
         }
         catch {
@@ -45,9 +44,5 @@ class LoginViewModel: ObservableObject {
             self.error = error as? APIError ?? APIError.unexpectedError(error: error)
             hasError = true
         }
-    }
-    
-    func cancelLogin() {
-        UserDefaults.standard.set(false, forKey: "isLoggingIn")
     }
 }

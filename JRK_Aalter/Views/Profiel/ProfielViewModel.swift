@@ -18,15 +18,9 @@ class ProfielViewModel: ObservableObject {
             
             UserDefaults.standard.set(false, forKey: "isLoggedIn")
             UserDefaults.standard.set(false, forKey: "isLeiding")
-
-                      
         } catch {
             hasError = true
             self.error = error
         }
-    }
-    
-    func toLogin() {
-        UserDefaults.standard.set(true, forKey: "isLoggingIn")
     }
 }

@@ -31,13 +31,6 @@ struct LoginView: View {
                 }.disabled(viewModel.isAuthenticating)
             }
             .navigationTitle("Inloggen")
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction){
-                    Button(action: {viewModel.cancelLogin()}) {
-                        Label("Terug", systemImage: "arrow.left")
-                    }
-                }
-            }
         }
         .accentColor(.red)
         .alert(isPresented: $viewModel.hasError){

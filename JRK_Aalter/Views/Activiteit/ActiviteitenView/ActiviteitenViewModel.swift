@@ -41,9 +41,24 @@ class ActiviteitenViewModel: ObservableObject {
         isPresentingNewActiviteitView = true
     }
     
-    func deleteActiviteiten(indexes: IndexSet){
+    func deleteActiviteiten(indexes: IndexSet) async{
         for index in indexes {
-            activiteiten.remove(at: index)
+            let indexOfItemToDelete = activiteiten[index].id
+            let deleteResource = Resource(url: "activiteiten/\(indexOfItemToDelete)", method: .delete, modelType: Int.self)
+            let response: APIResult<Int> = await client.load(deleteResource)
+            if (response.isSucces) {
+                activiteiten.removeAll(where: { $0.id == indexOfItemToDelete })
+               await fetchActiviteiten()
+            } else {
+                switch response.error {
+                case .unauthorized(_):
+                    UserDefaults.standard.set(false, forKey: "isLoggedIn")
+                    UserDefaults.standard.set(false, forKey: "isLeiding")
+                default:
+                    self.hasError = true
+                    error = response.error
+                }
+            }
         }
     }
     

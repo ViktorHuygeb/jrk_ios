@@ -14,21 +14,11 @@ struct ProfielView: View {
     var body: some View {
         NavigationStack {
             VStack() {
-                if isLoggedIn {
-                    Text("Je bent ingelogd")
-                    Button(action: { viewModel.logout() }){
-                        Text("Log uit")
-                    }
-                } else {
-                    Text("Log in om je accountgegevens te bekijken")
-                        .font(.headline)
-                        .padding(.bottom)
-                    Button(action: { viewModel.toLogin() }){
-                        Label("Log in", systemImage:("arrow.right.circle"))
-                            .labelStyle(.trailingIcon)
-                    }
-                    .buttonStyle(.borderedProminent)
+                Text("Je bent ingelogd")
+                Button(action: { viewModel.logout() }){
+                    Text("Log uit")
                 }
+             
             }
             .navigationTitle("Profiel")
             .alert(isPresented: $viewModel.hasError){

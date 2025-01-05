@@ -19,13 +19,21 @@ struct ActiviteitenView: View {
                     NavigationLink(destination: ActiviteitDetailView(activiteit: $activiteit)){
                         ActiviteitCardView(activiteit: activiteit)
                     }
+                    .id(activiteit.id)
                 }
-                .onDelete(perform: viewModel.deleteActiviteiten(indexes:))
+                .onDelete(perform: {indexes in
+                    Task {
+                        await viewModel.deleteActiviteiten(indexes: indexes)
+                    }
+                })
                 .deleteDisabled(!isLeiding)
                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 20))
             }
             .navigationTitle("Activiteiten")
             .toolbar(content: toolbarContent)
+            .alert(isPresented: $viewModel.hasError){
+                Alert(title: Text("Waarschuwing"), message: Text(viewModel.error?.localizedDescription ?? "Er is een fout opgetreden"))
+            }
         }
         .sheet(isPresented: $viewModel.isPresentingNewActiviteitView){
             NewActiviteitSheet(activiteiten: $viewModel.activiteiten, isPresentingNewActiviteitVew: $viewModel.isPresentingNewActiviteitView)

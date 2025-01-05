@@ -27,6 +27,28 @@ struct Keychain {
         }
     }
     
+    static func get<T: Codable>(_ key: String) throws -> T? {
+        let query: [CFString: Any] = [
+            kSecClass: kSecClassGenericPassword,
+            kSecAttrAccount: key,
+            kSecReturnData: kCFBooleanTrue as Any,
+            kSecMatchLimit: kSecMatchLimitOne
+        ]
+       
+        var item: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &item)
+        
+        if status == errSecSuccess, let data = item as? Data {
+            do {
+                let value = try JSONDecoder().decode(T.self, from: data)
+                return value
+            } catch {
+                throw LoginError.keychainError
+            }
+        }
+        return nil
+    }
+    
     static func delete(_ key: String) -> Bool {
         let query: [CFString: Any] = [
            kSecClass: kSecClassGenericPassword,
