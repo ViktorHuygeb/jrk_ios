@@ -44,11 +44,9 @@ actor JRKClient {
         let token: String? = try? Keychain.get("jwtToken")
         
         if let token {
-            print("Ik steek de token in de header \(token)")
             configuration.httpAdditionalHeaders?["Authorization"] = "Bearer \(token)"
         }
         
-        print("Ik maak de urlsessie")
         self.session = URLSession(configuration: configuration)
     }
     
@@ -60,7 +58,7 @@ actor JRKClient {
             var components = URLComponents(url: feedURL.appending(component: resource.url), resolvingAgainstBaseURL: false)
             components?.queryItems = queryItems
             guard let url = components?.url else {
-                return APIResult(error: APIError.badRequest)
+                return APIResult(error: APIError.badRequest(message: "Er is een fout opgetreden tijdens het opvragen van de data."))
             }
             
             request = URLRequest(url: url)
@@ -78,6 +76,10 @@ actor JRKClient {
             
             if let httpResponse = response as? HTTPURLResponse {
                 switch httpResponse.statusCode {
+                case 400:
+                    let errorResult = try JSONDecoder().decode(ErrorResponse.self, from: data)
+                    print(errorResult.details.body)
+                    return APIResult<T>(error: APIError.badRequest(message: errorResult.message))
                 case 401:
                     let errorResult = try JSONDecoder().decode(ErrorResponse.self, from: data)
                     return APIResult<T>(error: APIError.unauthorized(message: errorResult.message))

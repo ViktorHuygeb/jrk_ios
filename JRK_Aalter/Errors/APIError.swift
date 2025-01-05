@@ -8,7 +8,7 @@
 import Foundation
 
 enum APIError: Error {
-    case badRequest
+    case badRequest(message: String)
     case networkError
     case missingData
     case notFound(message: String)
@@ -19,8 +19,8 @@ enum APIError: Error {
 extension APIError: LocalizedError {
     public var errorDescription: String? {
         switch self {
-        case .badRequest:
-            return NSLocalizedString( "De request is ongeldig.", comment: "")
+        case .badRequest(let message):
+            return NSLocalizedString( message, comment: "")
         case .networkError:
             return NSLocalizedString("Er is een fout opgetreden tijdens het ophalen van data over het netwerk.", comment: "")
         case .missingData:

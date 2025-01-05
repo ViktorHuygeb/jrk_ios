@@ -7,13 +7,12 @@
 import SwiftUI
 
 struct ActiviteitDetailView: View {
-    @AppStorage("isLeiding") var isLeiding: Bool = false
-    @AppStorage("isLoggedIn") var isLoggedIn: Bool = false
+    @ObservedObject private var viewModel: ActiviteitDetailViewModel
     
-    @Binding var activiteit: Activiteit
+    init(currentActiviteit: Activiteit){
+        viewModel = ActiviteitDetailViewModel(currentActiviteit: currentActiviteit)
+    }
     
-    @State private var editingActiviteit = Activiteit.emptyActiviteit
-    @State private var isPresentingEditView = false
     
     var body: some View {
         List {
@@ -21,28 +20,28 @@ struct ActiviteitDetailView: View {
                 HStack {
                     Label("Activiteit", systemImage: "figure.run")
                     Spacer()
-                    Text(activiteit.activiteitNaam)
+                    Text(viewModel.currentActiviteit.activiteitNaam)
                 }
                 .accessibilityElement(children: .combine)
                 HStack{
                     Label("Datum", systemImage: "calendar")
                     Spacer()
-                    Text(GlobalDateFormatter.shared.dateString(from: activiteit.datum))
+                    Text(GlobalDateFormatter.shared.dateString(from: viewModel.currentActiviteit.datum))
                 }
                 .accessibilityElement(children: .combine) //  This is used so screenreaders read the two elements  as one statement: "Datum: datum"
                 HStack {
                     Label("Prijs", systemImage:"wallet.bifold")
                     Spacer()
-                    Text((activiteit.prijs == 0.00) ? "Gratis" : String(format: "€ %.2f", activiteit.prijs))
+                    Text(viewModel.activiteitPrijs())
                 }
                 .accessibilityElement(children: .combine)
             }
             
             Section(header: Text("Beschrijving")){
-                Text(activiteit.beschrijving)
+                Text(viewModel.currentActiviteit.beschrijving)
             }
             
-            if(activiteit.moetInschrijven && isLoggedIn){
+            if(viewModel.currentActiviteit.moetInschrijven && viewModel.isLoggedIn){
                 Section {
                     Button(action: {}){
                         Text("Inschrijven")
@@ -50,42 +49,48 @@ struct ActiviteitDetailView: View {
                 }
             }
         }
-        .navigationTitle(activiteit.activiteitNaam)
+        
+        .navigationTitle(viewModel.currentActiviteit.activiteitNaam)
         .toolbar{
-            if isLeiding {
+            if viewModel.isLeiding {
                 Button ("Bewerk"){
-                    editingActiviteit = activiteit
-                    isPresentingEditView = true
+                    viewModel.openEditActiviteit()
                 }
             }
         }
-        .sheet(isPresented: $isPresentingEditView){
+        .sheet(isPresented: $viewModel.isPresentingEditView){
             NavigationStack {
-                ActiviteitEditView(activiteit: $editingActiviteit)
-                    .navigationTitle(activiteit.activiteitNaam)
+                ActiviteitEditView(activiteit: $viewModel.edititingActiviteit)
+                    .navigationTitle(viewModel.currentActiviteit.activiteitNaam)
                     .toolbar {
                         ToolbarItem(placement: .cancellationAction) {
                             Button("Annuleer") {
-                                isPresentingEditView = false
+                                viewModel.isPresentingEditView = false
                             }
                         }
                         ToolbarItem(placement: .confirmationAction) {
                             Button("Bewaar"){
-                                isPresentingEditView = false
-                                activiteit = editingActiviteit
+                                Task {
+                                    await viewModel.saveActiviteit()
+                                }
                             }
+                            .disabled(viewModel.isSaving)
                         }
+                    }
+                    .alert(isPresented: $viewModel.hasError){
+                        Alert(title: Text("Waarschuwing"), message: Text(viewModel.error?.localizedDescription ?? "Er is een fout opgetreden"))
                     }
             }.accentColor(Color.red)
         }
         .accentColor(Color.red)
+        
     }
 }
 
 struct ActiviteitDetailView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack{
-            ActiviteitDetailView(activiteit: .constant(Activiteit.sampleData[1]))
+            ActiviteitDetailView(currentActiviteit: Activiteit.sampleData[1])
         }
     }
 }

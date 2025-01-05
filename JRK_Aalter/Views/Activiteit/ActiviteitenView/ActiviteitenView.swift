@@ -16,7 +16,7 @@ struct ActiviteitenView: View {
         NavigationStack{
             List() {
                 ForEach($viewModel.activiteiten){ $activiteit in
-                    NavigationLink(destination: ActiviteitDetailView(activiteit: $activiteit)){
+                    NavigationLink(destination: ActiviteitDetailView(currentActiviteit: activiteit)){
                         ActiviteitCardView(activiteit: activiteit)
                     }
                     .id(activiteit.id)
